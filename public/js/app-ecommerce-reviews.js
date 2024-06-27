@@ -222,12 +222,30 @@
             });
 
         $(".btn-generate").on("click", function () {
+            blockUI();
             const rows = e.rows().data().toArray();
-            console.log(rows);
+            let name = $("#title").val(),
+                csrfToken = $('meta[name="csrf-token"]').attr("content");
+
+            if (!name.trim()) {
+                $.unblockUI();
+                Toast.fire({
+                    icon: "error",
+                    title: "Debes ingresar un nombre para el grupo de certificados",
+                });
+                return;
+            }
+
+            if (rows.length === 0) {
+                $.unblockUI();
+                Toast.fire({
+                    icon: "error",
+                    title: "Debe existir al menos un registro en la tabla",
+                });
+                return;
+            }
 
             let formData = new FormData();
-            let name = $("#title").val();
-            let csrfToken = $('meta[name="csrf-token"]').attr("content");
 
             formData.append("file1", $("#upload")[0].files[0]);
             formData.append("file2", $("#upload2")[0].files[0]);
@@ -245,11 +263,72 @@
                 contentType: false,
             })
                 .done(function (response) {
-                    console.log(response);
+                    Toast.fire({
+                        icon: response.icon,
+                        title: response.message,
+                    });
+
+                    Swal.fire({
+                        title: "<strong>PDFs Generados</strong>",
+                        icon: "success",
+                        html: "Puedes ir al curso y enviar correo a alumnos o seguir generando PDFs",
+                        showCloseButton: true,
+                        showCancelButton: true,
+                        focusConfirm: false,
+                        confirmButtonText:
+                            '<i class="mdi mdi mdi-page-next me-2"></i> Ir a Curso',
+                        cancelButtonText:
+                            "<i class='mdi mdi mdi-plus-box me-2'></i> Seguir Aqui",
+                        customClass: {
+                            confirmButton:
+                                "btn btn-primary me-3 waves-effect waves-light",
+                            cancelButton:
+                                "btn btn-outline-warning waves-effect",
+                        },
+                        buttonsStyling: false,
+                        preConfirm: () => {
+                            window.location.href = "Curso/1";
+                        },
+                    }).then((result) => {
+                        if (result.dismiss === Swal.DismissReason.cancel) {
+                            location.reload();
+                        }
+                    });
                 })
                 .fail(function (xhr, status, error) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Contactar con proveedor sistemas.",
+                    });
                     console.error(xhr.responseText);
                 })
-                .always(function () {});
+                .always(function () {
+                    $.unblockUI();
+                });
+        });
+
+        function blockUI() {
+            $.blockUI({
+                message:
+                    '<div class="d-flex justify-content-center"><p class="mt-1">GENERANDO PDFS &nbsp; </p> <div class="sk-wave m-0"><div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div></div> </div>',
+                css: {
+                    backgroundColor: "transparent",
+                    color: "#fff",
+                    border: "0",
+                },
+                overlayCSS: { opacity: 0.5 },
+            });
+        }
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            },
         });
     });

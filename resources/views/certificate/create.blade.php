@@ -19,7 +19,7 @@
                                     class="d-block w-px-120 h-px-120 rounded mb-3" id="uploadedAvatar">
                                 <div class="button-wrapper">
                                     <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
-                                        <span class="d-none d-sm-block">Subir Plantilla 1</span>
+                                        <span class="d-none d-sm-block">Subir Hoja 1</span>
                                         <i class="mdi mdi-tray-arrow-up d-block d-sm-none"></i>
                                         <input type="file" id="upload" class="account-file-input" hidden=""
                                             accept="image/png, image/jpeg">
@@ -32,7 +32,7 @@
                                     class="d-block w-px-120 h-px-120 rounded mb-3" id="uploadedAvatar2">
                                 <div class="button-wrapper">
                                     <label for="upload2" class="btn btn-primary me-2 mb-3" tabindex="0">
-                                        <span class="d-none d-sm-block">Subir Plantilla 2</span>
+                                        <span class="d-none d-sm-block">Subir Hoja 2</span>
                                         <i class="mdi mdi-tray-arrow-up d-block d-sm-none"></i>
                                         <input type="file" id="upload2" class="account-file-input2" hidden=""
                                             accept="image/png, image/jpeg">
@@ -91,8 +91,6 @@
                 </table>
             </div>
         </div>
-
-
     </div>
 @endsection()
 

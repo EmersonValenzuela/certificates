@@ -66,6 +66,11 @@ class PdfController extends Controller
         $pdf->SetXY(248.7, 43);
         $pdf->Cell(1, 5, $score, 0, 1, 'C');
 
+        $pdf->SetFont('Oswald-Regular', '', 12);
+        $pdf->SetTextColor(117, 117, 117);
+        $pdf->SetXY(244, 176.2);
+        $pdf->Cell(1, 5, $code, 0, 1, 'L');
+
         // Guardar el archivo PDF en una carpeta específica dentro del proyecto
         $pdf->Output();
 

@@ -40,15 +40,15 @@ class CertificateController extends Controller
      */
     public function store(Request $request)
     {
-        ini_set('max_execution_time', 300);
 
+        ini_set('max_execution_time', 300);
         $name = $request->input('name');
 
         $file1Path = $request->file('file1')->store('public/uploads');
         $file2Path = $request->file('file2')->store('public/uploads');
 
         $img1Url = Storage::url($file1Path);
-$img2Url = Storage::url($file2Path);
+        $img2Url = Storage::url($file2Path);
 
         $course = new Course([
             'name_course' => $name,
@@ -76,13 +76,7 @@ $img2Url = Storage::url($file2Path);
             $this->generatePdf($img1Url, $img2Url, $student);
         }
 
-        $pdfController = new PdfController();
-        $pdfController->generatePdfForCourse($courseId);
-
-        return response()->json([
-            'message' => 'Curso y estudiantes creados exitosamente',
-            'course_id' => $courseId,
-        ]);
+        return response()->json(['success' => true, 'icon' => 'success', 'message' => 'Pdfs Generados']);
     }
 
 
