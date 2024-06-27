@@ -286,6 +286,8 @@
                                 "btn btn-outline-warning waves-effect",
                         },
                         buttonsStyling: false,
+                        allowOutsideClick: false, // Evita que el modal se cierre al hacer clic fuera de él
+                        allowEscapeKey: false, // Evita que el modal se cierre al presionar la tecla Escape
                         preConfirm: () => {
                             window.location.href = "Curso/1";
                         },
