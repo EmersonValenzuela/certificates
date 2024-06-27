@@ -18,7 +18,8 @@ class CertificateController extends Controller
      */
     public function index()
     {
-        //
+        $data['title'] = "Cursos";
+        return view('certificate.index', $data);
     }
 
     /**

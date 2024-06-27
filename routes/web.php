@@ -24,7 +24,7 @@ Route::get('/verpdfs', [PdfController::class, 'index']);
 
 Route::controller(CertificateController::class)->group(function ($route) {
 
+    Route::get('/Cursos', 'index')->name('certficate.index');
     Route::get('/Generar_Certificados', 'create')->name('certficate.create');
     Route::post('/scopeData', 'store');
-
 });

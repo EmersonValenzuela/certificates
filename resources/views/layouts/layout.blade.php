@@ -157,8 +157,8 @@
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="{{ route('admin.dashboard') }}" class="menu-link">
-                                    <div data-i18n="List">Lista</div>
+                                <a href="{{ route('certficate.index') }}" class="menu-link">
+                                    <div data-i18n="List Courses">Lista Cursos</div>
                                 </a>
                             </li>
                             <li class="menu-item">
