@@ -2,10 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class PdfController extends Controller
 {
+    public function index()
+    {
+        // Obtener la lista de archivos en la carpeta public/pdfs
+        $files = File::files(public_path('pdfs'));
+
+        // Filtrar para incluir solo archivos PDF
+        $pdfFiles = array_filter($files, function ($file) {
+            return $file->getExtension() === 'pdf';
+        });
+
+        // Pasar los archivos a la vista
+        return view('pdfs.index', compact('pdfFiles'));
+    }
+    
     public function generatePdf()
     {
         require(public_path('fpdf/fpdf.php'));

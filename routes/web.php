@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('admin.dashboard');
 Route::get('/generatePdf', [PdfController::class, 'generatePdf']);
+Route::get('/verpdfs', [PdfController::class, 'index']);
+
 
 Route::controller(CertificateController::class)->group(function ($route) {
 
