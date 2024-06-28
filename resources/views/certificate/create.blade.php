@@ -64,16 +64,6 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12 col-lg-12">
-                                    <div class="input-group input-group-merge">
-                                        <span class="input-group-text">
-                                            <i class="mdi mdi-web fs-3"></i></span>
-                                        <div class="form-floating form-floating-outline">
-                                            <input type="text" id="linkqr" class="form-control" placeholder="enlace">
-                                            <label for="mailStudent">Enlace de OneDrive</label>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="pt-3">
                                     <div class="row g-2">
                                         <div class="col-sm-9 col-lg-8">
