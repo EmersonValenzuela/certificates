@@ -38,9 +38,6 @@
                 </div>
             </div>
         </div>
-        <!--/ Header -->
-
-
         <div class="row mb-4 g-4">
             <div class="col-lg-12">
                 <div class="card h-100">
@@ -65,9 +62,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <!-- User Profile Content -->
         <div class="row">
             <div class="col-12 col-lg-12 mb-4 mb-xl-0">
                 <div class="demo-inline-spacing mt-3">
@@ -91,7 +86,8 @@
                                                 onclick="downloadPDF('{{ asset('pdfs/' . $student->code_student . '.pdf') }}', '{{ $student->code_student }}' )">
                                                 <i class="mdi mdi-file-pdf-box me-1 mdi-20px"></i> Descargar PDF</button>
                                             &nbsp;
-                                            <button class="btn btn-primary">
+                                            <button class="btn btn-primary"
+                                                onclick="openModal({{ $student->code_student }}, '{{ $student->name_student }}')">
                                                 <i class="mdi mdi-email-arrow-right-outline me-1 mdi-20px"></i>
                                                 Enviar Correo</button>
                                         </div>
@@ -103,10 +99,42 @@
                 </div>
             </div>
         </div>
-        <!--/ User Profile Content -->
-
     </div>
-    <!-- / Content -->
+
+    <!-- Modal Authentication via SMS -->
+    <div class="modal fade" id="modalMail" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-simple">
+            <div class="modal-content p-3 p-md-5">
+                <div class="modal-body py-3 py-md-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h4 class="mb-2 pt-1">Enviar Correo al estudiante: </h4>
+                    <p class="mb-4 text-truncate" id="student"></p>
+                    <div class="mb-4">
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i class="mdi mdi-email-arrow-right fs-3"></i></span>
+                            <div class="form-floating form-floating-outline">
+                                <input type="text" id="modalAddCardCvv" class="form-control cvv-code-mask" maxlength="3"
+                                    placeholder="example@gmail.com">
+                                <label for="modalAddCardCvv">Correo Electronico</label>
+                            </div>
+                            <span class="input-group-text cursor-pointer" id="modalAddCardCvv2"><i
+                                    class="mdi mdi-help-circle-outline text-muted" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" aria-label="Ingresar Correo Correcto"
+                                    data-bs-original-title="Ingresar Correo Existente"></i></span>
+                        </div>
+                    </div>
+                    <div class="col-12 text-end">
+                        <button type="button" class="btn btn-outline-secondary me-sm-3 me-1" data-bs-toggle="modal"
+                            data-bs-target="#twoFactorAuth"><i class="mdi mdi-arrow-left me-1 scaleX-n1-rtl"></i><span
+                                class="align-middle d-none d-sm-inline-block">Back</span></button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close"><span
+                                class="align-middle d-none d-sm-inline-block">Continue</span><i
+                                class="mdi mdi-arrow-right ms-1 scaleX-n1-rtl"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection()
 
 @section('styles')
@@ -125,6 +153,11 @@
             link.click();
 
             document.body.removeChild(link);
+        }
+
+        function openModal(code, name) {
+            $("#student").text(`${name} (${code})`);
+            $("#modalMail").modal('show');
         }
     </script>
 @endsection
