@@ -9,7 +9,8 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="user-profile-header-banner">
-                        <img src="{{ public_path(Storage::url($course->templateOne)) }}" alt="Banner image" class="rounded-top">
+                        <img src="@php $img1 = Storage::url($course->templateOne);  return public_path($img1); @endphp"
+                            alt="Banner image" class="rounded-top">
                     </div>
                     <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
                         <div class="flex-grow-1 mt-3 mt-sm-5">
