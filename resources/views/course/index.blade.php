@@ -87,7 +87,8 @@
                                             </div>
                                         </div>
                                         <div class="add-btn">
-                                            <button class="btn btn-danger">
+                                            <button class="btn btn-danger"
+                                                onclick="downloadPDF('{{ asset('pdfs/' . $student->code_student . '.pdf') }}', '{{ $student->code_student }}' )">
                                                 <i class="mdi mdi-file-pdf-box me-1 mdi-20px"></i> Descargar PDF</button>
                                             &nbsp;
                                             <button class="btn btn-primary">
@@ -113,4 +114,17 @@
 @endsection()
 
 @section('scripts')
+    <script>
+        function downloadPDF(pdfUrl, name) {
+            var link = document.createElement('a');
+            link.href = pdfUrl;
+            link.target = '_blank';
+            link.download = name;
+
+            document.body.appendChild(link);
+            link.click();
+
+            document.body.removeChild(link);
+        }
+    </script>
 @endsection
