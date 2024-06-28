@@ -250,6 +250,7 @@
             formData.append("file1", $("#upload")[0].files[0]);
             formData.append("file2", $("#upload2")[0].files[0]);
             formData.append("name", name);
+            formData.append("linkqr", $("#linkqr").val());
             formData.append("rows", JSON.stringify(rows));
 
             formData.append("_token", csrfToken);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use nguyenary\QRCodeMonkey\QRCode;
 
 class PdfController extends Controller
 {
@@ -20,18 +21,20 @@ class PdfController extends Controller
         // Pasar los archivos a la vista
         return view('pdfs.index', compact('pdfFiles'));
     }
-    
+
     public function generatePdf()
     {
         require(public_path('fpdf/fpdf.php'));
 
 
-        $img1 = "images/page_1.png";
-        $img2 = "images/page_2.png";
+        $img1 = "images/pag1qr.png";
+        $img2 = "images/pag2qr.png";
         $name = "Marlon Valenzuela Estrada";
         $code = "1745147";
         $course = "Panaderia Nuclear";
         $score = "08";
+        $link = "https://institutodozer.edu.pe/";
+        $qr = $this->generarQRTransparente($link);
 
         $pdf = new \FPDF('L', 'mm', 'A4');
         $pdf->AddPage();
@@ -66,9 +69,11 @@ class PdfController extends Controller
         $pdf->SetXY($x, 70); // Ajustar la posición vertical según sea necesario
         $pdf->Cell($anchoTexto, 40, utf8_decode($course), '', 1, 'C', false);
 
+        $pdf->Image($qr, 25.7, 161.9, 22, 22);
+
         $pdf->SetFont('Oswald-Regular', '', 12);
         $pdf->SetTextColor(117, 117, 117);
-        $pdf->SetXY(244, 178.8);
+        $pdf->SetXY(97, 176.78);
         $pdf->Cell(1, 5, $code, 0, 1, 'L');
 
         $pdf->AddPage('L');
@@ -81,14 +86,51 @@ class PdfController extends Controller
         $pdf->SetXY(248.7, 43);
         $pdf->Cell(1, 5, $score, 0, 1, 'C');
 
+        $pdf->Image($qr, 31, 161.5, 22, 22);
+
         $pdf->SetFont('Oswald-Regular', '', 12);
         $pdf->SetTextColor(117, 117, 117);
-        $pdf->SetXY(244, 176.2);
+        $pdf->SetXY(118.9, 176.8);
         $pdf->Cell(1, 5, $code, 0, 1, 'L');
 
         // Guardar el archivo PDF en una carpeta específica dentro del proyecto
         $pdf->Output();
 
         return response()->json(['message' => 'PDF generado y guardado correctamente', 'file_path' => $filePath]);
+    }
+
+    public function generarQRTransparente($texto)
+    {
+        $qrcode = new QRCode($texto);
+
+        $qrcode->setConfig([
+            'bgColor' => '',
+            'body' => 'circular',
+            'bodyColor' => '#0277bd',
+            'brf1' => [],
+            'brf2' => [],
+            'brf3' => [],
+            'erf1' => [],
+            'erf2' => [],
+            'erf3' => [],
+            'eye' => 'frame13',
+            'eye1Color' => '#000000',
+            'eye2Color' => '#000000',
+            'eye3Color' => '#000000',
+            'eyeBall' => 'ball14',
+            'eyeBall1Color' => '#000000',
+            'eyeBall2Color' => '#000000',
+            'eyeBall3Color' => '#000000',
+            'gradientColor1' => '#000000',
+            'gradientColor2' => '#000000',
+            'gradientOnEyes' => 'true',
+            'gradientType' => 'linear',
+        ]);
+
+        $qrcode->setSize(300);
+        $qrcode->setFileType('png');
+        $imagenBase64 = $qrcode->create();
+
+        return $imagenBase64; // Devuelve solo la cadena base64 de la imagen
     }
 }

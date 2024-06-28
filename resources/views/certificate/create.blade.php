@@ -52,16 +52,33 @@
                             <h5>Datos de Curso</h5>
                             <div class="row g-2">
                                 <div class="col-sm-12 col-lg-12">
-                                    <div class="form-floating form-floating-outline me-3">
-                                        <input type="text" id="title" name="title" class="form-control"
-                                            placeholder="Ingresa titulo de curso">
-                                        <label class="mb-0" for="title">Ingresa titulo de curso</label>
+                                    <div class="input-group input-group-merge">
+                                        <span class="input-group-text">
+                                            <i class="mdi mdi-book-account-outline fs-3"></i></span>
+                                        <div class="form-floating form-floating-outline">
+
+                                            <input type="text" id="title" name="title" class="form-control"
+                                                placeholder="Ingresa titulo de curso">
+                                            <label class="mb-0" for="title">Ingresa titulo de curso</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-lg-12">
+                                    <div class="input-group input-group-merge">
+                                        <span class="input-group-text">
+                                            <i class="mdi mdi-web fs-3"></i></span>
+                                        <div class="form-floating form-floating-outline">
+                                            <input type="text" id="linkqr" class="form-control" placeholder="enlace">
+                                            <label for="mailStudent">Correo Electronico</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="pt-3">
                                     <div class="row g-2">
                                         <div class="col-sm-9 col-lg-8">
-                                            <button type="button" class="btn btn-primary  waves-effect waves-light btn-generate">
+                                            <button type="button"
+                                                class="btn btn-primary  waves-effect waves-light btn-generate">
                                                 Generar <i class="mdi mdi-file-pdf-box fs-3"></i>
                                             </button>
                                         </div>

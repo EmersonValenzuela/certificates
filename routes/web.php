@@ -4,6 +4,7 @@ use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\QrCodeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,8 @@ Route::get('/correo', function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('admin.dashboard');
 Route::get('/generatePdf', [PdfController::class, 'generatePdf']);
+Route::get('/generateqr/{data}', [QrCodeController::class, 'generarQRTransparente']);
+
 Route::get('/verpdfs', [PdfController::class, 'index']);
 
 

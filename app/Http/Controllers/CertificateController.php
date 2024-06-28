@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use nguyenary\QRCodeMonkey\QRCode;
 
 require(public_path('fpdf/fpdf.php'));
 
@@ -51,8 +52,9 @@ class CertificateController extends Controller
     public function store(Request $request)
     {
 
-        ini_set('max_execution_time', 500);
+        ini_set('max_execution_time', 600);
         $name = $request->input('name');
+        $link = $request->input('linkqr');
 
         $file1Path = $request->file('file1')->store('public/uploads');
         $file2Path = $request->file('file2')->store('public/uploads');
@@ -83,20 +85,22 @@ class CertificateController extends Controller
 
             $student->save();
 
-            $this->generatePdf($img1Url, $img2Url, $student);
+            $this->generatePdf($img1Url, $img2Url, $link, $student);
         }
 
         return response()->json(['success' => true, 'icon' => 'success', 'message' => 'Pdfs Generados', 'course' => $courseId]);
     }
 
 
-    private function generatePdf($img1Path, $img2Path, $student)
+    private function generatePdf($img1Path, $img2Path, $link, $student)
     {
 
         $name = $student->name_student;
         $code = $student->code_student;
         $course = $student->course_student;
         $score = $student->score_student;
+
+        $qr = $this->generarQRTransparente($link);
 
         $pdf = new \FPDF('L', 'mm', 'A4');
         $pdf->AddPage();
@@ -129,9 +133,11 @@ class CertificateController extends Controller
         $pdf->SetXY($x, 70);
         $pdf->Cell($anchoTexto, 40, utf8_decode($course), '', 1, 'C', false);
 
+        $pdf->Image($qr, 25.7, 161.9, 22, 22);
+
         $pdf->SetFont('Oswald-Regular', '', 12);
         $pdf->SetTextColor(117, 117, 117);
-        $pdf->SetXY(244, 178.8);
+        $pdf->SetXY(97, 176.78);
         $pdf->Cell(1, 5, $code, 0, 1, 'L');
 
         $pdf->AddPage('L');
@@ -143,13 +149,50 @@ class CertificateController extends Controller
         $pdf->SetXY(248.7, 43);
         $pdf->Cell(1, 5, $score, 0, 1, 'C');
 
+        $pdf->Image($qr, 31, 161.5, 22, 22);
+
         $pdf->SetFont('Oswald-Regular', '', 12);
         $pdf->SetTextColor(117, 117, 117);
-        $pdf->SetXY(244, 176.2);
+        $pdf->SetXY(118.9, 176.8);
         $pdf->Cell(1, 5, $code, 0, 1, 'L');
 
         $pdfFileName = $student->code_student . '.pdf';
         $pdf->Output(public_path('pdfs/') . $pdfFileName, 'F');
+    }
+
+    public function generarQRTransparente($texto)
+    {
+        $qrcode = new QRCode($texto);
+
+        $qrcode->setConfig([
+            'bgColor' => '',
+            'body' => 'circular',
+            'bodyColor' => '#0277bd',
+            'brf1' => [],
+            'brf2' => [],
+            'brf3' => [],
+            'erf1' => [],
+            'erf2' => [],
+            'erf3' => [],
+            'eye' => 'frame13',
+            'eye1Color' => '#000000',
+            'eye2Color' => '#000000',
+            'eye3Color' => '#000000',
+            'eyeBall' => 'ball14',
+            'eyeBall1Color' => '#000000',
+            'eyeBall2Color' => '#000000',
+            'eyeBall3Color' => '#000000',
+            'gradientColor1' => '#000000',
+            'gradientColor2' => '#000000',
+            'gradientOnEyes' => 'true',
+            'gradientType' => 'linear',
+        ]);
+
+        $qrcode->setSize(300);
+        $qrcode->setFileType('png');
+        $imagenBase64 = $qrcode->create();
+
+        return $imagenBase64; // Devuelve solo la cadena base64 de la imagen
     }
 
     /**

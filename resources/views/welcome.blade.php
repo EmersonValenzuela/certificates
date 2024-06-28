@@ -414,7 +414,7 @@
                                                                             href="https://www.example.com"
                                                                             target="_blank" style="outline:none"
                                                                             tabindex="-1"><img
-                                                                                src="https://admin.syvec.com.pe/images/logo-dark.png"
+                                                                                src="{{ asset('images/logo-dark.png') }}"
                                                                                 style="display: block; height: auto; border: 0; width: 90%;"
                                                                                 width="154.667" alt="your logo"
                                                                                 title="your logo" height="auto"></a>
@@ -434,7 +434,7 @@
                                                             <td class="pad">
                                                                 <div
                                                                     style="color:#ffffff;direction:ltr;font-family:Inter, sans-serif;font-size:14px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:right;mso-line-height-alt:16.8px;">
-                                                                    <p style="margin: 0;">Copyright 2024 Instituto
+                                                                    <p style="margin: 0;">Copyright © 2024 Instituto
                                                                         Dozer, <br>Todos los derechos reservados.</p>
                                                                 </div>
                                                             </td>
