@@ -27,8 +27,8 @@ class PdfController extends Controller
         require(public_path('fpdf/fpdf.php'));
 
 
-        $img1 = "images/pag1qr.png";
-        $img2 = "images/pag2qr.png";
+        $img1 = "images/pagina1final.png";
+        $img2 = "images/pagina2final.png";
         $name = "Marlon Valenzuela Estrada";
         $code = "1745147";
         $course = "Panaderia Nuclear";
@@ -71,11 +71,11 @@ class PdfController extends Controller
         $pdf->SetXY($x, 70); // Ajustar la posición vertical según sea necesario
         $pdf->Cell($anchoTexto, 40, utf8_decode($course), '', 1, 'C', false);
 
-        $pdf->Image($qr, 25.7, 161.9, 22, 22);
+        $pdf->Image($qr, 27.1, 161.6, 22, 22);
 
         $pdf->SetFont('Oswald-Regular', '', 12);
         $pdf->SetTextColor(117, 117, 117);
-        $pdf->SetXY(97, 176.78);
+        $pdf->SetXY(84, 176.7);
         $pdf->Cell(1, 5, $code, 0, 1, 'L');
 
         $pdf->AddPage('L');
@@ -88,11 +88,11 @@ class PdfController extends Controller
         $pdf->SetXY(248.7, 43);
         $pdf->Cell(1, 5, $score, 0, 1, 'C');
 
-        $pdf->Image($qr, 31, 161.5, 22, 22);
+        $pdf->Image($qr, 28.3, 161.4, 22, 22);
 
         $pdf->SetFont('Oswald-Regular', '', 12);
         $pdf->SetTextColor(117, 117, 117);
-        $pdf->SetXY(118.9, 176.8);
+        $pdf->SetXY(84, 176.8);
         $pdf->Cell(1, 5, $code, 0, 1, 'L');
 
         // Guardar el archivo PDF en una carpeta específica dentro del proyecto

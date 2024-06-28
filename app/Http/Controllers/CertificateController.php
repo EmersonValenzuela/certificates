@@ -135,11 +135,11 @@ class CertificateController extends Controller
         $pdf->SetXY($x, 70);
         $pdf->Cell($anchoTexto, 40, utf8_decode($course), '', 1, 'C', false);
 
-        $pdf->Image($qr, 25.7, 161.9, 22, 22);
+        $pdf->Image($qr, 27.1, 161.6, 22, 22);
 
         $pdf->SetFont('Oswald-Regular', '', 12);
         $pdf->SetTextColor(117, 117, 117);
-        $pdf->SetXY(97, 176.78);
+        $pdf->SetXY(84, 176.7);
         $pdf->Cell(1, 5, $code, 0, 1, 'L');
 
         $pdf->AddPage('L');
@@ -151,11 +151,11 @@ class CertificateController extends Controller
         $pdf->SetXY(248.7, 43);
         $pdf->Cell(1, 5, $score, 0, 1, 'C');
 
-        $pdf->Image($qr, 31, 161.5, 22, 22);
+        $pdf->Image($qr, 28.3, 161.4, 22, 22);
 
         $pdf->SetFont('Oswald-Regular', '', 12);
         $pdf->SetTextColor(117, 117, 117);
-        $pdf->SetXY(118.9, 176.8);
+        $pdf->SetXY(84, 176.8);
         $pdf->Cell(1, 5, $code, 0, 1, 'L');
 
         $pdfFileName = $student->code_student . '.pdf';
