@@ -141,6 +141,23 @@
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('vendor/css/pages/page-profile.css') }}">
+    <style>
+        .list-group-item {
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+            max-height: 200px;
+            /* Ajusta según sea necesario */
+            overflow: hidden;
+        }
+
+        .list-group-item.hidden {
+            opacity: 0;
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    </style>
 @endsection()
 
 @section('scripts')
@@ -157,20 +174,20 @@
             document.body.removeChild(link);
         }
 
-        $('#referralLink').on('input', function() {
-            var searchValue = $(this).val().toLowerCase().trim();
-            console.log('Search value:', searchValue);
+        $(document).ready(function() {
+            $('#referralLink').on('input', function() {
+                var searchValue = $(this).val().toLowerCase().trim();
 
-            $('#studentList .list-group-item').each(function() {
-                var studentName = $(this).find('.user-info h6').text().toLowerCase();
-                var studentCode = $(this).find('.user-status small').text().toLowerCase();
-                console.log('Student name:', studentName, 'Student code:', studentCode);
+                $('#studentList .list-group-item').each(function() {
+                    var studentName = $(this).find('.user-info h6').text().toLowerCase();
+                    var studentCode = $(this).find('.user-status small').text().toLowerCase();
 
-                if (studentName.includes(searchValue) || studentCode.includes(searchValue)) {
-                    $(this).removeAttr('style');
-                } else {
-                    $(this).attr('style', 'display:none !important');
-                }
+                    if (studentName.includes(searchValue) || studentCode.includes(searchValue)) {
+                        $(this).removeClass('hidden');
+                    } else {
+                        $(this).addClass('hidden');
+                    }
+                });
             });
         });
 

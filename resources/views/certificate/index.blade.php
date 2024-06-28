@@ -12,7 +12,8 @@
                 <div class="faq-header d-flex flex-column justify-content-center align-items-center mb-3">
                     <div class="input-wrapper my-3 input-group input-group-lg input-group-merge px-5">
                         <span class="input-group-text" id="basic-addon1"><i class="mdi mdi-magnify mdi-20px"></i></span>
-                        <input type="text" class="form-control" id="searchCourse" placeholder="Buscar curso..." aria-label="Buscar curso">
+                        <input type="text" class="form-control" id="searchCourse" placeholder="Buscar curso..."
+                            aria-label="Buscar curso">
 
 
                     </div>
@@ -103,11 +104,11 @@
 @endsection()
 
 @section('styles')
+    <script></script>
 @endsection()
 
 @section('scripts')
-<script>
-    $(document).ready(function() {
+    <script>
         $('#searchCourse').on('input', function() {
             var searchValue = $(this).val().toLowerCase().trim();
 
@@ -121,6 +122,5 @@
                 }
             });
         });
-    });
-</script>
+    </script>
 @endsection
