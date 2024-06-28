@@ -111,13 +111,15 @@ class CertificateController extends Controller
         $pdf->Image(public_path($img1Path), 0, 0, $anchoPagina, $altoPagina);
 
         $pdf->AddFont('Oswald-Regular', '', 'Oswald-VariableFont_wght.php');
+        $pdf->AddFont('Oswald-Bold', '', 'Oswald-Bold.php');
+        $pdf->AddFont('Oswald-Medium', '', 'Oswald-Medium.php');
 
         $pdf->SetFont('Oswald-Regular', '', 11);
         $pdf->SetTextColor(117, 117, 117);
         $pdf->SetXY(25.3, 30);
         $pdf->Cell(1, 35, $code, 0, 1, 'L');
 
-        $pdf->SetFont('Oswald-Regular', '', 22);
+        $pdf->SetFont('Oswald-Bold', '', 22);
         $pdf->SetTextColor(0, 0, 0);
 
         $anchoTexto = $pdf->GetStringWidth($name);
@@ -125,7 +127,7 @@ class CertificateController extends Controller
         $pdf->SetXY($x, 46);
         $pdf->Cell($anchoTexto, 40, utf8_decode($name), '', 1, 'C', false);
 
-        $pdf->SetFont('Oswald-Regular', '', 22);
+        $pdf->SetFont('Oswald-Medium', '', 22);
         $pdf->SetTextColor(0, 0, 0);
 
         $anchoTexto = $pdf->GetStringWidth($course);
@@ -144,7 +146,7 @@ class CertificateController extends Controller
         $pdf->SetFont('times', '', 12);
 
         $pdf->Image(public_path($img2Path), 0, 0, $anchoPagina, $altoPagina);
-        $pdf->SetFont('Oswald-Regular', '', 20);
+        $pdf->SetFont('Oswald-Bold', '', 20);
         $pdf->SetTextColor(255, 255, 255);
         $pdf->SetXY(248.7, 43);
         $pdf->Cell(1, 5, $score, 0, 1, 'C');

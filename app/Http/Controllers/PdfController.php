@@ -46,6 +46,8 @@ class PdfController extends Controller
         $pdf->Image(public_path($img1), 0, 0, $anchoPagina, $altoPagina);
 
         $pdf->AddFont('Oswald-Regular', '', 'Oswald-VariableFont_wght.php');
+        $pdf->AddFont('Oswald-Bold', '', 'Oswald-Bold.php');
+        $pdf->AddFont('Oswald-Medium', '', 'Oswald-Medium.php');
 
         $pdf->SetFont('Oswald-Regular', '', 11);
         $pdf->SetTextColor(117, 117, 117);
@@ -53,7 +55,7 @@ class PdfController extends Controller
         $pdf->Cell(1, 35, $code, 0, 1, 'L');
 
         // Configurar para centrar el texto
-        $pdf->SetFont('Oswald-Regular', '', 22);
+        $pdf->SetFont('Oswald-Bold', '', 22);
         $pdf->SetTextColor(0, 0, 0);
 
         $anchoTexto = $pdf->GetStringWidth($name);
@@ -61,7 +63,7 @@ class PdfController extends Controller
         $pdf->SetXY($x, 46); // Ajustar la posición vertical según sea necesario
         $pdf->Cell($anchoTexto, 40, $name, '', 1, 'C', false);
 
-        $pdf->SetFont('Oswald-Regular', '', 22);
+        $pdf->SetFont('Oswald-Medium', '', 22);
         $pdf->SetTextColor(0, 0, 0);
 
         $anchoTexto = $pdf->GetStringWidth($course);
@@ -81,7 +83,7 @@ class PdfController extends Controller
 
         // Página 2: Imagen y texto
         $pdf->Image(public_path($img2), 0, 0, $anchoPagina, $altoPagina);
-        $pdf->SetFont('Oswald-Regular', '', 20);
+        $pdf->SetFont('Oswald-Bold', '', 20);
         $pdf->SetTextColor(255, 255, 255);
         $pdf->SetXY(248.7, 43);
         $pdf->Cell(1, 5, $score, 0, 1, 'C');
