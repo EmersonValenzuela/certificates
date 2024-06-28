@@ -70,7 +70,7 @@
                                             <i class="mdi mdi-web fs-3"></i></span>
                                         <div class="form-floating form-floating-outline">
                                             <input type="text" id="linkqr" class="form-control" placeholder="enlace">
-                                            <label for="mailStudent">Correo Electronico</label>
+                                            <label for="mailStudent">Enlace de OneDrive</label>
                                         </div>
                                     </div>
                                 </div>
