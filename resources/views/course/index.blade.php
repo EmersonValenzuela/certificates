@@ -113,21 +113,22 @@
                         <div class="input-group input-group-merge">
                             <span class="input-group-text"><i class="mdi mdi-email-arrow-right fs-3"></i></span>
                             <div class="form-floating form-floating-outline">
-                                <input type="text" id="modalAddCardCvv" class="form-control cvv-code-mask" maxlength="3"
-                                    placeholder="example@gmail.com">
-                                <label for="modalAddCardCvv">Correo Electronico</label>
+                                <input type="email" id="mailStudent" class="form-control" placeholder="example@gmail.com">
+                                <label for="mailStudent">Correo Electronico</label>
                             </div>
-                            <span class="input-group-text cursor-pointer" id="modalAddCardCvv2"><i
-                                    class="mdi mdi-help-circle-outline text-muted" data-bs-toggle="tooltip"
+                            <input type="hidden" id="codeStudent" name="codeStudent">
+                            <span class="input-group-text cursor-pointer" id="modalAddCardCvv2">
+                                <i class="mdi mdi-help-circle-outline text-muted" data-bs-toggle="tooltip"
                                     data-bs-placement="top" aria-label="Ingresar Correo Correcto"
-                                    data-bs-original-title="Ingresar Correo Existente"></i></span>
+                                    data-bs-original-title="Ingresar Correo Existente"></i>
+                            </span>
                         </div>
                     </div>
                     <div class="col-12 text-end">
                         <button type="button" class="btn btn-outline-secondary me-sm-3 me-1" data-bs-toggle="modal"
                             data-bs-target="#twoFactorAuth"><i class="mdi mdi-arrow-left me-1 scaleX-n1-rtl"></i><span
                                 class="align-middle d-none d-sm-inline-block">Back</span></button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close"><span
+                        <button type="button" class="btn btn-primary" id="sendMail"><span
                                 class="align-middle d-none d-sm-inline-block">Continue</span><i
                                 class="mdi mdi-arrow-right ms-1 scaleX-n1-rtl"></i></button>
                     </div>
@@ -155,7 +156,36 @@
             document.body.removeChild(link);
         }
 
+        const csrfToken = $('meta[name="csrf-token"]').attr("content");
+
+
+        $("#sendMail").on("click", function() {
+            let formData = new FormData();
+
+            formData.append("mail", $("#mailStudent").val());
+            formData.append("code", $("#codeStudent").val());
+            formData.append("_token", csrfToken);
+
+            $.ajax({
+                    url: "mailStudent",
+                    method: "POST",
+                    data: formData,
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                })
+                .done(function(response) {
+                    console.log(response);
+
+                })
+                .fail(function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                })
+                .always(function() {});
+        });
+
         function openModal(code, name) {
+            $("#codeStudent").val(code);
             $("#student").text(`${name} (${code})`);
             $("#modalMail").modal('show');
         }
