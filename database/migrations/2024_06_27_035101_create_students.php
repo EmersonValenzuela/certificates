@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('course_student');
             $table->string('name_student');
             $table->string('score_student');
+            $table->integer('status_mail')->default(0);
             $table->timestamps();
 
 

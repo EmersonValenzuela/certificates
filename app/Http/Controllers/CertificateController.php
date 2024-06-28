@@ -18,8 +18,17 @@ class CertificateController extends Controller
      */
     public function index()
     {
-        $data['title'] = "Cursos";
-        return view('certificate.index', $data);
+        $title = "Cursos";
+        $courses = Course::withCount([
+            'students',
+            'students as students_sent_count' => function ($query) {
+                $query->where('status_mail', 1);
+            },
+            'students as students_not_sent_count' => function ($query) {
+                $query->where('status_mail', 0);
+            }
+        ])->get();
+        return view('certificate.index', compact('courses', 'title'));
     }
 
     /**
@@ -109,7 +118,7 @@ class CertificateController extends Controller
 
         $anchoTexto = $pdf->GetStringWidth($name);
         $x = ($anchoPagina - $anchoTexto) / 2;
-        $pdf->SetXY($x, 46); 
+        $pdf->SetXY($x, 46);
         $pdf->Cell($anchoTexto, 40, utf8_decode($name), '', 1, 'C', false);
 
         $pdf->SetFont('Oswald-Regular', '', 22);
@@ -117,7 +126,7 @@ class CertificateController extends Controller
 
         $anchoTexto = $pdf->GetStringWidth($course);
         $x = ($anchoPagina - $anchoTexto) / 2;
-        $pdf->SetXY($x, 70); 
+        $pdf->SetXY($x, 70);
         $pdf->Cell($anchoTexto, 40, utf8_decode($course), '', 1, 'C', false);
 
         $pdf->SetFont('Oswald-Regular', '', 12);
@@ -151,7 +160,6 @@ class CertificateController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**

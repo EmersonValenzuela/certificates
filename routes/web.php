@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
@@ -27,4 +28,8 @@ Route::controller(CertificateController::class)->group(function ($route) {
     Route::get('/Cursos', 'index')->name('certficate.index');
     Route::get('/Generar_Certificados', 'create')->name('certficate.create');
     Route::post('/scopeData', 'store');
+});
+
+Route::controller(CourseController::class)->group(function ($route) {
+    Route::get('/Curso/{course_id}', 'index');
 });
