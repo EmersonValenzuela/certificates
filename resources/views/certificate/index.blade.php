@@ -29,7 +29,7 @@
                             <div class="d-flex align-items-center mb-3">
                                 <a href="{{ url('Curso/' . $course->id_course) }}" class="d-flex align-items-center">
                                     <div class="avatar avatar-sm me-2">
-                                        <img src="{{ Storage::url($course->templateOne) }}" alt="Avatar"
+                                        <img src="{{ public_path(Storage::url($course->templateOne)) }}" alt="Avatar"
                                             class="rounded-circle">
                                     </div>
                                     <div class="me-2 text-heading h5 mb-0">
