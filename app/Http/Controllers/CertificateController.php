@@ -86,7 +86,7 @@ class CertificateController extends Controller
             $this->generatePdf($img1Url, $img2Url, $student);
         }
 
-        return response()->json(['success' => true, 'icon' => 'success', 'message' => 'Pdfs Generados']);
+        return response()->json(['success' => true, 'icon' => 'success', 'message' => 'Pdfs Generados', 'course' => $courseId]);
     }
 
 
