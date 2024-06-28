@@ -12,14 +12,15 @@
                 <div class="faq-header d-flex flex-column justify-content-center align-items-center mb-3">
                     <div class="input-wrapper my-3 input-group input-group-lg input-group-merge px-5">
                         <span class="input-group-text" id="basic-addon1"><i class="mdi mdi-magnify mdi-20px"></i></span>
-                        <input type="text" class="form-control" placeholder="Buscar curso...." aria-label="Search"
-                            aria-describedby="basic-addon1">
+                        <input type="text" class="form-control" id="searchCourse" placeholder="Buscar curso..." aria-label="Buscar curso">
+
+
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row g-4">
+        <div class="row g-4" id="courseList">
             @foreach ($courses as $course)
                 <div class="col-xl-4 col-lg-6 col-md-6">
                     <div class="card">
@@ -105,4 +106,21 @@
 @endsection()
 
 @section('scripts')
+<script>
+    $(document).ready(function() {
+        $('#searchCourse').on('input', function() {
+            var searchValue = $(this).val().toLowerCase().trim();
+
+            $('#courseList .card').each(function() {
+                var courseName = $(this).find('.text-heading').text().toLowerCase();
+
+                if (courseName.includes(searchValue)) {
+                    $(this).parent().show();
+                } else {
+                    $(this).parent().hide();
+                }
+            });
+        });
+    });
+</script>
 @endsection

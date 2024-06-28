@@ -47,14 +47,8 @@
                                 <div class="col-sm-12 col-lg-4">
                                     <div class="form-floating form-floating-outline me-3">
                                         <input type="text" id="referralLink" name="referralLink" class="form-control"
-                                            placeholder="Nombre / Código">
+                                            placeholder="Buscar por Nombre o Código" aria-label="Buscar estudiante">
                                         <label class="mb-0" for="referralLink">Buscar Estudiante</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 col-lg-4 ps-1 ps-sm-0 text-end">
-                                    <div class="d-flex gap-3">
-                                        <button type="button" class="btn btn-primary btn-lg btn-icon"><i
-                                                class='mdi mdi-file-search-outline text-white mdi-24px'></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -66,12 +60,12 @@
         <div class="row">
             <div class="col-12 col-lg-12 mb-4 mb-xl-0">
                 <div class="demo-inline-spacing mt-3">
-                    <div class="list-group">
+                    <div class="list-group" id="studentList">
                         @foreach ($students as $student)
                             <div class="list-group-item list-group-item-action d-flex align-items-center cursor-pointer">
                                 <img src="{{ asset('img/avatars/5.png') }}" alt="User Image"
                                     class="rounded-circle me-3 w-px-50">
-                                <div class="w-100">
+                                <div class="w-100 ">
                                     <div class="d-flex justify-content-between">
                                         <div class="user-info">
                                             <h6 class="mb-1">{{ $student->name_student }}</h6>
@@ -86,20 +80,23 @@
                                                 $buttonClass =
                                                     $student->status_mail == 1 ? 'btn btn-success' : 'btn btn-primary';
                                             @endphp
-                                            <button class="btn btn-danger" 
+                                            <button class="btn btn-danger mb-2"
                                                 onclick="downloadPDF('{{ asset('pdfs/' . $student->code_student . '.pdf') }}', '{{ $student->code_student }}' )">
-                                                <i class="mdi mdi-file-pdf-box me-1 mdi-20px"></i> Descargar PDF</button>
+                                                <i class="mdi mdi-file-pdf-box me-1 mdi-20px"></i>
+                                            </button>
                                             &nbsp;
-                                            <button class="btn {{ $buttonClass }}" id="{{ $student->code_student }}"
+                                            <button class="btn {{ $buttonClass }} mb-2" id="{{ $student->code_student }}"
                                                 onclick="openModal({{ $student->code_student }}, '{{ $student->name_student }}')">
                                                 <i class="mdi mdi-email-arrow-right-outline me-1 mdi-20px"></i>
-                                                Enviar Correo</button>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -159,6 +156,25 @@
 
             document.body.removeChild(link);
         }
+
+        $('#referralLink').on('input', function() {
+            var searchValue = $(this).val().toLowerCase().trim();
+            console.log('Search value:', searchValue);
+
+            $('#studentList .list-group-item').each(function() {
+                var studentName = $(this).find('.user-info h6').text().toLowerCase();
+                var studentCode = $(this).find('.user-status small').text().toLowerCase();
+                console.log('Student name:', studentName, 'Student code:', studentCode);
+
+                if (studentName.includes(searchValue) || studentCode.includes(searchValue)) {
+                    $(this).removeAttr('style');
+                } else {
+                    $(this).attr('style', 'display:none !important');
+                }
+            });
+        });
+
+
 
         const csrfToken = $('meta[name="csrf-token"]').attr("content");
 
