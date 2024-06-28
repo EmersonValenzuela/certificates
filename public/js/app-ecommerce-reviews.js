@@ -42,6 +42,7 @@
                     { data: "names" },
                     { data: "course" },
                     { data: "score" },
+                    { data: "link" },
                     { data: " " },
                 ],
 
@@ -56,6 +57,7 @@
                             return "";
                         },
                     },
+
                     {
                         targets: 1,
                         render: function (a, t, x, s) {
@@ -95,6 +97,7 @@
                             return "<span> " + a + "</span>";
                         },
                     },
+
                     {
                         targets: -1,
                         title: "Acciones",
@@ -212,6 +215,7 @@
                             names: row.nombre_alumno,
                             course: row.curso,
                             score: row.nota,
+                            link: row.link,
                             "": "",
                         };
                         e.row.add(rowData).draw();
@@ -250,7 +254,6 @@
             formData.append("file1", $("#upload")[0].files[0]);
             formData.append("file2", $("#upload2")[0].files[0]);
             formData.append("name", name);
-            formData.append("linkqr", $("#linkqr").val());
             formData.append("rows", JSON.stringify(rows));
 
             formData.append("_token", csrfToken);

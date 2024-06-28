@@ -102,6 +102,7 @@
                             <th class="text-nowrap">Nombres</th>
                             <th>Curso</th>
                             <th>Nota</th>
+                            <th>Enlace</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>

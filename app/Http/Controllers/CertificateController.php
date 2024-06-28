@@ -54,7 +54,6 @@ class CertificateController extends Controller
 
         ini_set('max_execution_time', 600);
         $name = $request->input('name');
-        $link = $request->input('linkqr');
 
         $file1Path = $request->file('file1')->store('public/uploads');
         $file2Path = $request->file('file2')->store('public/uploads');
@@ -81,11 +80,12 @@ class CertificateController extends Controller
                 'course_student' => $studentData['course'],
                 'name_student' => $studentData['names'],
                 'score_student' => $studentData['score'],
+                'url_student' => $studentData['link'],
             ]);
 
             $student->save();
 
-            $this->generatePdf($img1Url, $img2Url, $link, $student);
+            $this->generatePdf($img1Url, $img2Url, $studentData['link'], $student);
         }
 
         return response()->json(['success' => true, 'icon' => 'success', 'message' => 'Pdfs Generados', 'course' => $courseId]);
