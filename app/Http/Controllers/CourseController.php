@@ -40,6 +40,9 @@ class CourseController extends Controller
 
         try {
             Mail::to($mail)->send(new StudentMail($student));
+            
+            $student->status_mail = 1;
+            $student->save();
 
             return response()->json(['success' => true, 'icon' => 'success', 'message' => 'Correo Enviado']);
         } catch (\Exception $e) {

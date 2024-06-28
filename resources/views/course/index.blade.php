@@ -82,11 +82,15 @@
                                             </div>
                                         </div>
                                         <div class="add-btn">
-                                            <button class="btn btn-danger"
+                                            @php
+                                                $buttonClass =
+                                                    $student->status_mail == 1 ? 'btn btn-success' : 'btn btn-primary';
+                                            @endphp
+                                            <button class="btn btn-danger" 
                                                 onclick="downloadPDF('{{ asset('pdfs/' . $student->code_student . '.pdf') }}', '{{ $student->code_student }}' )">
                                                 <i class="mdi mdi-file-pdf-box me-1 mdi-20px"></i> Descargar PDF</button>
                                             &nbsp;
-                                            <button class="btn btn-primary"
+                                            <button class="btn {{ $buttonClass }}" id="{{ $student->code_student }}"
                                                 onclick="openModal({{ $student->code_student }}, '{{ $student->name_student }}')">
                                                 <i class="mdi mdi-email-arrow-right-outline me-1 mdi-20px"></i>
                                                 Enviar Correo</button>
@@ -127,9 +131,9 @@
                     <div class="col-12 text-end">
                         <button type="button" class="btn btn-outline-secondary me-sm-3 me-1" data-bs-toggle="modal"
                             data-bs-target="#twoFactorAuth"><i class="mdi mdi-arrow-left me-1 scaleX-n1-rtl"></i><span
-                                class="align-middle d-none d-sm-inline-block">Back</span></button>
+                                class="align-middle d-none d-sm-inline-block">Cerrar</span></button>
                         <button type="button" class="btn btn-primary" id="sendMail"><span
-                                class="align-middle d-none d-sm-inline-block">Continue</span><i
+                                class="align-middle d-none d-sm-inline-block">Enviar</span><i
                                 class="mdi mdi-arrow-right ms-1 scaleX-n1-rtl"></i></button>
                     </div>
                 </div>
@@ -160,10 +164,12 @@
 
 
         $("#sendMail").on("click", function() {
-            let formData = new FormData();
+            blockUI();
 
+            let formData = new FormData();
+            const code = $("#codeStudent").val();
             formData.append("mail", $("#mailStudent").val());
-            formData.append("code", $("#codeStudent").val());
+            formData.append("code", code);
             formData.append("_token", csrfToken);
 
             $.ajax({
@@ -175,13 +181,24 @@
                     contentType: false,
                 })
                 .done(function(response) {
-                    console.log(response);
+                    Toast.fire({
+                        icon: response.icon,
+                        title: response.message,
+                    });
+
+                    $("#" + code).toggleClass('btn-primary btn-success');
 
                 })
                 .fail(function(xhr, status, error) {
                     console.error(xhr.responseText);
                 })
-                .always(function() {});
+                .always(function() {
+                    $("#modalMail").modal('hide');
+                    $("#codeStudent").val();
+                    $("#mailStudent").val()
+                    $("#student").text();
+                    $.unblockUI();
+                });
         });
 
         function openModal(code, name) {
@@ -189,5 +206,31 @@
             $("#student").text(`${name} (${code})`);
             $("#modalMail").modal('show');
         }
+
+        function blockUI() {
+            $.blockUI({
+                message: '<div class="d-flex justify-content-center"><p class="mt-1">Enviando Correo &nbsp; </p> <div class="sk-wave m-0"><div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div></div> </div>',
+                css: {
+                    backgroundColor: "transparent",
+                    color: "#fff",
+                    border: "0",
+                },
+                overlayCSS: {
+                    opacity: 0.5
+                },
+            });
+        }
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            },
+        });
     </script>
 @endsection
