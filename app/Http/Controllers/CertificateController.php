@@ -51,7 +51,7 @@ class CertificateController extends Controller
     public function store(Request $request)
     {
 
-        ini_set('max_execution_time', 300);
+        ini_set('max_execution_time', 500);
         $name = $request->input('name');
 
         $file1Path = $request->file('file1')->store('public/uploads');
