@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('/correo', function () {
+    return view('welcome');
+});
+
 Route::get('/', [HomeController::class, 'index'])->name('admin.dashboard');
 Route::get('/generatePdf', [PdfController::class, 'generatePdf']);
 Route::get('/verpdfs', [PdfController::class, 'index']);
