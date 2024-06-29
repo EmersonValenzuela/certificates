@@ -39,9 +39,11 @@
                 columns: [
                     { data: "code" },
                     { data: "code" },
+                    { data: "cip" },
                     { data: "names" },
                     { data: "course" },
                     { data: "score" },
+                    { data: "email" },
                     { data: "link" },
                     { data: " " },
                 ],
@@ -59,7 +61,7 @@
                     },
 
                     {
-                        targets: 1,
+                        targets: 2,
                         render: function (a, t, x, s) {
                             return (
                                 '<a href="app-ecommerce-order-details.html"><span>' +
@@ -69,7 +71,7 @@
                         },
                     },
                     {
-                        targets: 2,
+                        targets: 3,
                         responsivePriority: 1,
                         render: function (a, t, x, s) {
                             return (
@@ -80,7 +82,7 @@
                         },
                     },
                     {
-                        targets: 3,
+                        targets: 4,
                         responsivePriority: 2,
                         render: function (a, t, x, s) {
                             return (
@@ -91,10 +93,10 @@
                         },
                     },
                     {
-                        targets: 4,
+                        targets: 7,
                         className: "text-center",
                         render: function (a, t, x, s) {
-                            return "<span> " + a + "</span>";
+                            return `<a href="${a} " target="_blank">${a}  </a>`;
                         },
                     },
 
@@ -212,9 +214,11 @@
                     rows.forEach((row) => {
                         let rowData = {
                             code: row.cod_certificado,
+                            cip: row.cip,
                             names: row.nombre_alumno,
                             course: row.curso,
                             score: row.nota,
+                            email: row.email,
                             link: row.link,
                             "": "",
                         };

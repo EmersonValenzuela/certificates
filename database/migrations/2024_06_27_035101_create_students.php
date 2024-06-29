@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id('id_student');
             $table->unsignedBigInteger('course_id');
+            $table->string('cip_student');
             $table->string('code_student')->unique();
             $table->string('course_student');
             $table->string('name_student');
             $table->string('score_student');
             $table->string('url_student');
+            $table->string('email_student');
             $table->integer('status_mail')->default(0);
             $table->timestamps();
 

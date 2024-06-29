@@ -24,10 +24,8 @@ Route::get('/correo', function () {
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('admin.dashboard');
-Route::get('/generatePdf', [PdfController::class, 'generatePdf']);
-Route::get('/generateqr/{data}', [QrCodeController::class, 'generarQRTransparente']);
 
-Route::get('/verpdfs', [PdfController::class, 'index']);
+
 
 
 Route::controller(CertificateController::class)->group(function ($route) {
@@ -41,3 +39,9 @@ Route::controller(CourseController::class)->group(function ($route) {
     Route::get('/Curso/{course_id}', 'index');
     Route::post('/Curso/mailStudent', 'sendMail');
 });
+
+
+// Test Routes
+Route::get('/generatePdf', [PdfController::class, 'generatePdf']);
+Route::get('/generateqr/{data}', [QrCodeController::class, 'generarQRTransparente']);
+Route::get('/verpdfs', [PdfController::class, 'index']);

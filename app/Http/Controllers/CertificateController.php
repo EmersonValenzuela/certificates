@@ -77,9 +77,11 @@ class CertificateController extends Controller
             $student = new Student([
                 'course_id' => $courseId,
                 'code_student' => $studentData['code'],
+                'cip_student' => $studentData['cip'],
                 'course_student' => $studentData['course'],
                 'name_student' => $studentData['names'],
                 'score_student' => $studentData['score'],
+                'email_student' => $studentData['email'],
                 'url_student' => $studentData['link'],
             ]);
 
