@@ -353,6 +353,13 @@ document.getElementById("layout-menu") &&
                         !1
                     );
             } catch (e) {}
+        const numberInputs = document.querySelectorAll(".number-input");
+
+        numberInputs.forEach((input) => {
+            input.addEventListener("input", function () {
+                this.value = this.value.replace(/[^0-9]/g, "");
+            });
+        });
     })(),
     "undefined" != typeof $ &&
         $(function () {
@@ -573,7 +580,6 @@ document.getElementById("layout-menu") &&
                         console.log(response);
                         localStorage.removeItem("cashier");
                         window.location.href = "/";
-
                     })
                     .always(() => {
                         $.unblockUI();

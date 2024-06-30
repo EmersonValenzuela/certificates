@@ -94,7 +94,7 @@ class CertificateController extends Controller
     }
 
 
-    private function generatePdf($img1Path, $img2Path, $link, $student)
+    public function generatePdf($img1Path, $img2Path, $link, $student)
     {
 
         $name = $student->name_student;
