@@ -30,7 +30,7 @@
                                     </ul>
                                 </div>
                                 <a href="javascript:void(0)" class="btn btn-primary">
-                                    <i class='mdi mdi-account-check-outline me-1'></i>Connected
+                                    <i class='mdi mdi-account-plus me-1'></i>Agregar Estudiante
                                 </a>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                                             </button>
                                             &nbsp;
                                             <button class="btn {{ $buttonClass }} mb-2" id="{{ $student->code_student }}"
-                                                onclick="openModal({{ $student->code_student }}, '{{ $student->name_student }}')">
+                                                onclick="openModal({{ $student->code_student }}, '{{ $student->name_student }}', '{{ $student->email_student }}')">
                                                 <i class="mdi mdi-email-arrow-right-outline me-1 mdi-20px"></i>
                                             </button>
                                         </div>
@@ -227,16 +227,17 @@
                 })
                 .always(function() {
                     $("#modalMail").modal('hide');
-                    $("#codeStudent").val();
-                    $("#mailStudent").val()
-                    $("#student").text();
+                    $("#codeStudent").val('');
+                    $("#mailStudent").val('')
+                    $("#student").text('');
                     $.unblockUI();
                 });
         });
 
-        function openModal(code, name) {
+        function openModal(code, name, email) {
             $("#codeStudent").val(code);
             $("#student").text(`${name} (${code})`);
+            $("#mailStudent").val(email);
             $("#modalMail").modal('show');
         }
 
