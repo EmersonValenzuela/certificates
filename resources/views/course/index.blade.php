@@ -67,12 +67,12 @@
                 <div class="demo-inline-spacing mt-3">
                     <div class="list-group" id="studentList">
                         @foreach ($students as $student)
-                            <div class="list-group-item list-group-item-action d-flex align-items-center cursor-pointer">
+                            <div class="list-group-item list-group-item-action d-flex align-items-center " >
                                 <img src="{{ asset('img/avatars/5.png') }}" alt="User Image"
                                     class="rounded-circle me-3 w-px-50">
                                 <div class="w-100 ">
                                     <div class="d-flex justify-content-between">
-                                        <div class="user-info">
+                                        <div class="user-info cursor-pointer btnEditStudent" data-student="{{ $student->id_student }}">
                                             <h6 class="mb-1">{{ $student->name_student }}</h6>
                                             <div class="d-flex align-items-center">
                                                 <div class="user-status me-2 d-flex align-items-center">
@@ -156,6 +156,7 @@
                         @csrf
                         <input type="hidden" id="codeCourse" name="codeCourse">
                         <input type="hidden" id="nameCourse" name="nameCourse">
+                        <input type="hidden" id="inputStudent" name="inputStudent">
                         <div class="col-12 col-md-4">
                             <div class="input-group input-group-merge">
                                 <span class="input-group-text"><i class="mdi mdi-code-not-equal fs-3"></i></span>

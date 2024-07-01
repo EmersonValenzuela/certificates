@@ -74,7 +74,7 @@ class CourseController extends Controller
             $student->email_student = $request->input('mailForm');
             $student->url_student = $request->input('linkForm');
             $student->save();
-            
+
 
             $img1Url = Storage::url($request->input('file1'));
             $img2Url = Storage::url($request->input('file2'));
@@ -123,11 +123,19 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
-    }
+        $idStudent = $request->get('idStudent');
 
+        // Busca el estudiante por ID
+        $student = Student::find($idStudent);
+
+        if ($student) {
+            return response()->json($student);
+        } else {
+            return response()->json(['error' => 'Estudiante no encontrado'], 404);
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -146,10 +154,56 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, CertificateController $certificateController)
     {
-        //
+        DB::beginTransaction();
+
+        try {
+            // Buscar al estudiante por ID
+            $student = Student::findOrFail($request->input('inputStudent'));
+
+            // Actualizar los campos del estudiante
+            $student->course_id = $request->input('courseId');
+            $student->code_student = $request->input('codeForm');
+            $student->cip_student = $request->input('cipForm');
+            $student->course_student = $request->input('courseName');
+            $student->name_student = $request->input('nameForm');
+            $student->score_student = $request->input('scoreForm');
+            $student->email_student = $request->input('mailForm');
+            $student->url_student = $request->input('linkForm');
+            $student->save();
+
+            $img1Url = Storage::url($request->input('file1'));
+            $img2Url = Storage::url($request->input('file2'));
+
+            // Llama al método generatePdf del controlador CertificateController
+            $certificateController->generatePdf($img1Url, $img2Url, $student->url_student, $student);
+
+            // Confirmar la transacción
+            DB::commit();
+
+            // Redireccionar o devolver una respuesta JSON u otra lógica de respuesta según tu aplicación
+            return response()->json(['success' => true, 'icon' => 'success', 'message' => 'Actualización de Estudiante Exitosa.']);
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Si hay un error de duplicado, deshacer la transacción
+            DB::rollBack();
+
+            if ($e->errorInfo[1] == 1062) {
+                // Código de error 1062 es para duplicados en MySQL
+                return response()->json(['success' => false, 'icon' => 'error', 'message' => 'El código de estudiante ya existe.']);
+            }
+
+            // Devolver un mensaje de error genérico
+            return response()->json(['success' => false, 'icon' => 'error', 'message' => 'Error al actualizar al estudiante: ' . $e->getMessage()]);
+        } catch (\Exception $e) {
+            // Si hay cualquier otro error, deshacer la transacción
+            DB::rollBack();
+
+            // Devolver un mensaje de error genérico
+            return response()->json(['success' => false, 'icon' => 'error', 'message' => 'Error al actualizar al estudiante: ' . $e->getMessage()]);
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
