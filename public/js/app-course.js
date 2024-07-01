@@ -26,7 +26,7 @@ $(() => {
     });
 
     const csrfToken = $('meta[name="csrf-token"]').attr("content"),
-    courseName = $("#courseName").val(),
+        courseName = $("#courseName").val(),
         courseId = $("#courseId").val(),
         file1 = $("#file1").val(),
         file2 = $("#file2").val();
@@ -72,6 +72,39 @@ $(() => {
 
     $("#newStudent").on("click", function () {
         $("#titleModal").text("Nuevo Estudiante");
+        $("#modalStudent").modal("show");
+    });
+
+    $(".btnEditStudent").on("click", function () {
+        $("#titleModal").text("Editar Estudiante");
+        const idStudent = $(this).data("student");
+        blockUI();
+
+        $.ajax({
+            url: "scopeStudent",
+            type: "POST",
+            data: { _token: csrfToken, idStudent: idStudent },
+        })
+            .done((data) => {
+                console.log(data);
+
+                $("#codeCourse").val(data.course_id);
+                $("#nameCourse").val(data.course_student);
+                $("#inputStudent").val(data.id_student);
+                $("#codeForm").val(data.code_student);
+                $("#nameForm").val(data.name_student);
+                $("#cipForm").val(data.cip_student);
+                $("#mailForm").val(data.email_student);
+                $("#scoreForm").val(data.score_student);
+                $("#linkForm").val(data.url_student);
+            })
+            .fail((xhr) => {
+                console.error("Error:", xhr.responseText);
+            })
+            .always(() => {
+                $.unblockUI();
+            });
+
         $("#modalStudent").modal("show");
     });
 
@@ -200,6 +233,10 @@ $(() => {
                     title: data.message,
                 });
 
+                setTimeout(function() {
+                    location.reload();
+                }, 1000);
+
                 // Oculta el modal de producto.
                 $("#modalStudent").modal("hide");
             })
@@ -215,7 +252,7 @@ $(() => {
     function blockUI() {
         $.blockUI({
             message:
-                '<div class="d-flex justify-content-center"><p class="mt-1">Enviando Correo &nbsp; </p> <div class="sk-wave m-0"><div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div></div> </div>',
+                '<div class="d-flex justify-content-center"><p class="mt-1"></p> <div class="sk-wave m-0"><div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div></div> </div>',
             css: {
                 backgroundColor: "transparent",
                 color: "#fff",
