@@ -36,7 +36,7 @@ class StudentMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Student Mail',
+            subject: 'Tienes 1 mensaje nuevo',
         );
     }
 

@@ -89,7 +89,7 @@
                         <tr>
                             <th></th>
                             <th>Codigo</th>
-                            <th class="text-nowrap">CIP</th>
+                            <th class="text-nowrap">DNI</th>
                             <th class="text-nowrap">Nombres</th>
                             <th>Curso</th>
                             <th>Nota</th>
