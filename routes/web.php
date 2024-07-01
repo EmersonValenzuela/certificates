@@ -38,6 +38,9 @@ Route::controller(CertificateController::class)->group(function ($route) {
 Route::controller(CourseController::class)->group(function ($route) {
     Route::get('/Curso/{course_id}', 'index');
     Route::post('/Curso/mailStudent', 'sendMail');
+    Route::post('/Curso/newStudent', 'create');
+    Route::post('/Curso/updateStudent', 'update');
+    Route::post('/Curso/scopeStudent', 'show');
 });
 
 

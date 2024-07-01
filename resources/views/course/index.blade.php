@@ -29,9 +29,14 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <a href="javascript:void(0)" class="btn btn-primary">
+                                <a href="javascript:void(0)" class="btn btn-primary" id="newStudent">
                                     <i class='mdi mdi-account-plus me-1'></i>Agregar Estudiante
                                 </a>
+
+                                <input type="hidden" id="courseId" value="{{ $course->id_course }}">
+                                <input type="hidden" id="courseName" value="{{ $course->name_course }}">
+                                <input type="hidden" id="file1" value="{{ $course->templateOne }}">
+                                <input type="hidden" id="file2" value="{{ $course->tempalteTwo }}">
                             </div>
                         </div>
                     </div>
@@ -62,12 +67,12 @@
                 <div class="demo-inline-spacing mt-3">
                     <div class="list-group" id="studentList">
                         @foreach ($students as $student)
-                            <div class="list-group-item list-group-item-action d-flex align-items-center cursor-pointer">
+                            <div class="list-group-item list-group-item-action d-flex align-items-center " >
                                 <img src="{{ asset('img/avatars/5.png') }}" alt="User Image"
                                     class="rounded-circle me-3 w-px-50">
                                 <div class="w-100 ">
                                     <div class="d-flex justify-content-between">
-                                        <div class="user-info">
+                                        <div class="user-info cursor-pointer btnEditStudent" data-student="{{ $student->id_student }}">
                                             <h6 class="mb-1">{{ $student->name_student }}</h6>
                                             <div class="d-flex align-items-center">
                                                 <div class="user-status me-2 d-flex align-items-center">
@@ -81,7 +86,7 @@
                                                     $student->status_mail == 1 ? 'btn btn-success' : 'btn btn-primary';
                                             @endphp
                                             <button class="btn btn-danger mb-2"
-                                                onclick="downloadPDF('{{ asset('pdfs/' . $student->code_student . '.pdf') }}', '{{ $student->code_student }}' )">
+                                                OnClick="downloadPDF('{{ asset('pdfs/' . $student->code_student . '.pdf') }}', '{{ $student->code_student }}' )">
                                                 <i class="mdi mdi-file-pdf-box me-1 mdi-20px"></i>
                                             </button>
                                             &nbsp;
@@ -126,13 +131,99 @@
                         </div>
                     </div>
                     <div class="col-12 text-end">
-                        <button type="button" class="btn btn-outline-secondary me-sm-3 me-1" data-bs-toggle="modal"
-                            data-bs-target="#twoFactorAuth"><i class="mdi mdi-arrow-left me-1 scaleX-n1-rtl"></i><span
+                        <button type="button" class="btn btn-outline-secondary me-sm-3 me-1" data-bs-dismiss="modal"
+                            aria-label="Close"><i class="mdi mdi-arrow-left me-1 scaleX-n1-rtl"></i><span
                                 class="align-middle d-none d-sm-inline-block">Cerrar</span></button>
                         <button type="button" class="btn btn-primary" id="sendMail"><span
                                 class="align-middle d-none d-sm-inline-block">Enviar</span><i
                                 class="mdi mdi-arrow-right ms-1 scaleX-n1-rtl"></i></button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modalStudent" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-simple modal-dialog-centered">
+            <div class="modal-content p-3 p-md-5">
+                <div class="modal-body p-md-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="text-center mb-4">
+                        <h3 class="address-title mb-2 pb-1" id="titleModal"></h3>
+                    </div>
+                    <form id="formStudent" class="row g-4" onsubmit="return false">
+                        @csrf
+                        <input type="hidden" id="codeCourse" name="codeCourse">
+                        <input type="hidden" id="nameCourse" name="nameCourse">
+                        <input type="hidden" id="inputStudent" name="inputStudent">
+                        <div class="col-12 col-md-4">
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text"><i class="mdi mdi-code-not-equal fs-3"></i></span>
+                                <div class="form-floating form-floating-outline">
+                                    <input type="text" id="codeForm" name="codeForm" class="form-control"
+                                        placeholder="Código de Curso ">
+                                    <label for="codeForm">Código de Curso </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text"><i class="mdi mdi-account-school-outline fs-3"></i></span>
+                                <div class="form-floating form-floating-outline">
+                                    <input type="text" id="nameForm" name="nameForm" class="form-control"
+                                        placeholder="Nombres y Apelldios">
+                                    <label for="nameForm">Nombres y Apelldios</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text"><i class="mdi mdi-card-account-details fs-3"></i></span>
+                                <div class="form-floating form-floating-outline">
+                                    <input type="text" id="cipForm" name="cipForm"
+                                        class="form-control number-input" placeholder="CIP de Estudiante">
+                                    <label for="cipForm">CIP Estudiante</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text"><i class="mdi mdi-email fs-3"></i></span>
+                                <div class="form-floating form-floating-outline">
+                                    <input type="email" id="mailForm" name="mailForm" class="form-control"
+                                        placeholder="Email">
+                                    <label for="mailForm">Email</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text"><i class="mdi mdi-counter fs-3"></i></span>
+                                <div class="form-floating form-floating-outline">
+                                    <input type="text" id="scoreForm" name="scoreForm"
+                                        class="form-control input-number" placeholder="Nota de Estudiante">
+                                    <label for="scoreForm">Nota de Estudiante</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text"><i
+                                        class="mdi mdi-link-box-variant-outline fs-3"></i></span>
+                                <div class="form-floating form-floating-outline">
+                                    <input type="text" id="linkForm" name="linkForm"
+                                        class="form-control input-number" placeholder="Enlace de Documentos">
+                                    <label for="linkForm">Enlace de Documentos</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Guardar</button>
+                            <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                                aria-label="Close">Cancelar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -161,110 +252,5 @@
 @endsection()
 
 @section('scripts')
-    <script>
-        function downloadPDF(pdfUrl, name) {
-            var link = document.createElement('a');
-            link.href = pdfUrl;
-            link.target = '_blank';
-            link.download = name;
-
-            document.body.appendChild(link);
-            link.click();
-
-            document.body.removeChild(link);
-        }
-
-        $(document).ready(function() {
-            $('#referralLink').on('input', function() {
-                var searchValue = $(this).val().toLowerCase().trim();
-
-                $('#studentList .list-group-item').each(function() {
-                    var studentName = $(this).find('.user-info h6').text().toLowerCase();
-                    var studentCode = $(this).find('.user-status small').text().toLowerCase();
-
-                    if (studentName.includes(searchValue) || studentCode.includes(searchValue)) {
-                        $(this).removeClass('hidden');
-                    } else {
-                        $(this).addClass('hidden');
-                    }
-                });
-            });
-        });
-
-
-
-        const csrfToken = $('meta[name="csrf-token"]').attr("content");
-
-
-        $("#sendMail").on("click", function() {
-            blockUI();
-
-            let formData = new FormData();
-            const code = $("#codeStudent").val();
-            formData.append("mail", $("#mailStudent").val());
-            formData.append("code", code);
-            formData.append("_token", csrfToken);
-
-            $.ajax({
-                    url: "mailStudent",
-                    method: "POST",
-                    data: formData,
-                    dataType: "json",
-                    processData: false,
-                    contentType: false,
-                })
-                .done(function(response) {
-                    Toast.fire({
-                        icon: response.icon,
-                        title: response.message,
-                    });
-
-                    $("#" + code).toggleClass('btn-primary btn-success');
-
-                })
-                .fail(function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                })
-                .always(function() {
-                    $("#modalMail").modal('hide');
-                    $("#codeStudent").val('');
-                    $("#mailStudent").val('')
-                    $("#student").text('');
-                    $.unblockUI();
-                });
-        });
-
-        function openModal(code, name, email) {
-            $("#codeStudent").val(code);
-            $("#student").text(`${name} (${code})`);
-            $("#mailStudent").val(email);
-            $("#modalMail").modal('show');
-        }
-
-        function blockUI() {
-            $.blockUI({
-                message: '<div class="d-flex justify-content-center"><p class="mt-1">Enviando Correo &nbsp; </p> <div class="sk-wave m-0"><div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div></div> </div>',
-                css: {
-                    backgroundColor: "transparent",
-                    color: "#fff",
-                    border: "0",
-                },
-                overlayCSS: {
-                    opacity: 0.5
-                },
-            });
-        }
-
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
-            },
-        });
-    </script>
+    <script src="{{ asset('js/app-course.js') }}"></script>
 @endsection
