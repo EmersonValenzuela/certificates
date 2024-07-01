@@ -235,7 +235,7 @@ $(() => {
 
                 setTimeout(function() {
                     location.reload();
-                }, 2000);
+                }, 1000);
 
                 // Oculta el modal de producto.
                 $("#modalStudent").modal("hide");
