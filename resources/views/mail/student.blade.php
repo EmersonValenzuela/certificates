@@ -208,7 +208,7 @@
                                                                             tabindex="-1"><img
                                                                                 src="{{ asset('images/logo-dark.png') }}"
                                                                                 style="display: block; height: auto; border: 0; width: 90%;"
-                                                                                width="183.333" alt="your-logo"
+                                                                                width="183.333" alt=""
                                                                                 title="your-logo" height="auto"></a>
                                                                     </div>
                                                                 </div>
@@ -254,7 +254,7 @@
                                                                                 style="text-decoration: none;"><img
                                                                                     class="icon"
                                                                                     src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/7836/celebration-icon.png"
-                                                                                    alt="new year celebration"
+                                                                                    alt=""
                                                                                     height="auto" width="109"
                                                                                     align="center"
                                                                                     style="display: block; height: auto; margin: 0 auto; border: 0;"></a>

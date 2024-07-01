@@ -39,7 +39,7 @@
                 columns: [
                     { data: "code" },
                     { data: "code" },
-                    { data: "cip" },
+                    { data: "dni" },
                     { data: "names" },
                     { data: "course" },
                     { data: "score" },
@@ -214,7 +214,7 @@
                     rows.forEach((row) => {
                         let rowData = {
                             code: row.cod_certificado,
-                            cip: row.cip,
+                            dni: row.dni,
                             names: row.nombre_alumno,
                             course: row.curso,
                             score: row.nota,
