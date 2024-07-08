@@ -166,7 +166,7 @@ class CourseController extends Controller
             $student->course_id = $request->input('courseId');
             $student->code_student = $request->input('codeForm');
             $student->cip_student = $request->input('cipForm');
-            $student->course_student = $request->input('courseName');
+            $student->course_student = $request->input('nameCourse');
             $student->name_student = $request->input('nameForm');
             $student->score_student = $request->input('scoreForm');
             $student->email_student = $request->input('mailForm');

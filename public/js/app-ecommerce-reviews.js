@@ -306,10 +306,10 @@
                     });
                 })
                 .fail(function (xhr, status, error) {
-                   Toast.fire({
-                    icon: error.icon,
-                    title: error.message,
-                });
+                    Toast.fire({
+                        icon: error.icon,
+                        title: error.message,
+                    });
                     console.error(xhr.responseText);
                 })
                 .always(function () {
