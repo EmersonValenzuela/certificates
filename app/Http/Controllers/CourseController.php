@@ -112,9 +112,35 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function import(Request $request, CertificateController $certificateController)
     {
-        //
+        ini_set('max_execution_time', 600);
+
+        $img1Url = Storage::url($request->input('file1'));
+        $img2Url = Storage::url($request->input('file2'));
+
+        $courseId = $request->input('courseId');
+
+        $studentsData = json_decode($request->input('rows'), true);
+
+        foreach ($studentsData as $studentData) {
+            $student = new Student([
+                'course_id' => $courseId,
+                'code_student' => $studentData['code'],
+                'cip_student' => $studentData['dni'],
+                'course_student' => $studentData['course'],
+                'name_student' => $studentData['names'],
+                'score_student' => $studentData['score'],
+                'email_student' => $studentData['email'],
+                'url_student' => $studentData['link'],
+            ]);
+
+            $student->save();
+
+            $certificateController->generatePdf($img1Url, $img2Url, $student->url_student, $student);
+        }
+
+        return response()->json(['success' => true, 'icon' => 'success', 'message' => 'Pdfs Generados', 'course' => $courseId]);
     }
 
     /**

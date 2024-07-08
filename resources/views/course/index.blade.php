@@ -43,6 +43,41 @@
                 </div>
             </div>
         </div>
+        <div class="card card-action mb-3">
+            <div class="card-alert"></div>
+            <div class="card-header">
+                <div class="card-action-title">Importar Estudiantes</div>
+                <div class="card-action-element">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <a href="javascript:void(0);" class="card-collapsible"><i
+                                    class="tf-icons mdi mdi-chevron-down"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="collapse ">
+                <div class="card-datatable table-responsive">
+                    <table class="datatables-review table">
+                        <thead class="table-light">
+                            <tr>
+                                <th></th>
+                                <th>Codigo</th>
+                                <th class="text-nowrap">DNI</th>
+                                <th class="text-nowrap">Nombres</th>
+                                <th>Curso</th>
+                                <th>Nota</th>
+                                <th>Email</th>
+                                <th>Enlace</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <input type="file" id="excelFile" style="display: none;" accept=".xlsx, .xls">
+
+            </div>
+        </div>
         <div class="row mb-4 g-4">
             <div class="col-lg-12">
                 <div class="card h-100">
@@ -120,7 +155,8 @@
                         <div class="input-group input-group-merge">
                             <span class="input-group-text"><i class="mdi mdi-email-arrow-right fs-3"></i></span>
                             <div class="form-floating form-floating-outline">
-                                <input type="email" id="mailStudent" class="form-control" placeholder="example@gmail.com">
+                                <input type="email" id="mailStudent" class="form-control"
+                                    placeholder="example@gmail.com">
                                 <label for="mailStudent">Correo Electronico</label>
                             </div>
                             <input type="hidden" id="codeStudent" name="codeStudent">
@@ -263,5 +299,7 @@
 @endsection()
 
 @section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script src="{{ asset('js/cards-actions.js') }}"></script>
     <script src="{{ asset('js/app-course.js') }}"></script>
 @endsection

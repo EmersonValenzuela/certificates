@@ -41,6 +41,8 @@ Route::controller(CourseController::class)->group(function ($route) {
     Route::post('/Curso/newStudent', 'create');
     Route::post('/Curso/updateStudent', 'update');
     Route::post('/Curso/scopeStudent', 'show');
+    Route::post('/Curso/importStudents', 'import');
+
 });
 
 
