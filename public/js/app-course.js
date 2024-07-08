@@ -233,7 +233,7 @@ $(() => {
                     title: data.message,
                 });
 
-                setTimeout(function() {
+                setTimeout(function () {
                     location.reload();
                 }, 1000);
 
