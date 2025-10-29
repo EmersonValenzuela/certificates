@@ -1,64 +1,143 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<div align="center">
+  <br />
+  <a href="https://i.postimg.cc/6Qb5ZXGx/dozer.png" target="_blank">
+    <img src="https://i.postimg.cc/6Qb5ZXGx/dozer.png" alt="Sistema de Certificados Banner" width="600"/>
+  </a>
+  <br />
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+  <div>
+    <img src="https://img.shields.io/badge/-PHP-black?style=for-the-badge&logo=php&logoColor=white&color=777BB4" alt="PHP" />
+    <img src="https://img.shields.io/badge/-Laravel-black?style=for-the-badge&logo=laravel&logoColor=white&color=FF2D20" alt="Laravel" />
+    <img src="https://img.shields.io/badge/-JavaScript-black?style=for-the-badge&logo=javascript&logoColor=white&color=F0DB4F" alt="JavaScript" />
+    <img src="https://img.shields.io/badge/-Blade-black?style=for-the-badge&logo=laravel&logoColor=white&color=FF2D20" alt="Blade" />
+    <img src="https://img.shields.io/badge/-HTML-black?style=for-the-badge&logo=html5&logoColor=white&color=E44D26" alt="HTML" />
+    <img src="https://img.shields.io/badge/-CSS-black?style=for-the-badge&logo=css3&logoColor=white&color=1572B6" alt="CSS" />
+    <img src="https://img.shields.io/badge/-FPDF-black?style=for-the-badge&logoColor=white&color=4B8BBE" alt="FPDF" />
+    <img src="https://img.shields.io/badge/-QRCodeMonkey-black?style=for-the-badge&logoColor=white&color=2E7D32" alt="QRCodeMonkey" />
+  </div>
 
-## About Laravel
+  <h2 align="center">Sistema de Generación de Certificados 📜</h2>
+  <p align="center">
+    Genera certificados personalizados en lote para cursos, webinars, matrículas y reconocimientos de excelencia.<br>
+    Carga plantillas, importa estudiantes desde Excel y descarga PDFs con QR de validación.<br>
+    <b>Ideal para instituciones educativas, academias, y marcas que imparten formación en BIM y arquitectura.</b>
+  </p>
+</div>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Tabla de Contenidos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. [Introducción](#introducción)
+2. [Tech Stack](#tech-stack)
+3. [Características](#características)
+4. [Instalación Rápida](#instalación-rápida)
+5. [Uso Básico](#uso-básico)
+6. [Formato del Excel](#formato-del-excel)
+7. [Personalización](#personalización)
+8. [Contribución](#contribución)
+9. [Licencia](#licencia)
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## <a name="introducción">🤖 Introducción</a>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Este sistema nació de la necesidad de automatizar la generación de certificados para estudiantes en cursos de BIM y arquitectura. Permite gestión y envío masivo de certificados por distintas modalidades (webinar, matrícula, excelencia, etc.), todo de forma personalizada y eficiente, usando plantillas propias y datos cargados en lote.
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## <a name="tech-stack">⚙️ Tech Stack</a>
 
-### Premium Partners
+- **PHP** + **Laravel** (backend, lógica de negocio y generación de PDFs)
+- **Blade** (vistas)
+- **JavaScript** (procesamiento de Excel y UI)
+- **FPDF** (generación del PDF)
+- **QRCodeMonkey** (generación de QR)
+- **HTML & CSS** (estructura y estilos)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+---
 
-## Contributing
+## <a name="características">🔋 Características</a>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **Carga de plantillas personalizadas**: Sube imágenes para las páginas de tu certificado.
+- **Importación masiva desde Excel**: Añade lotes de estudiantes y sus datos.
+- **Generación de certificados en lote**: Crea PDFs individuales para cada estudiante.
+- **QR de validación**: Cada certificado incluye un QR con link único.
+- **Gestión visual de cursos y progreso**: Visualiza el estado y avance de los envíos.
+- **Preparado para envío masivo por correo**.
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## <a name="instalación-rápida">🤸 Instalación Rápida</a>
 
-## Security Vulnerabilities
+**Requisitos Previos**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- [Git](https://git-scm.com/)
+- [PHP](https://www.php.net/)
+- [Composer](https://getcomposer.org/)
+- [Node.js y npm](https://nodejs.org/) (opcional para assets)
 
-## License
+**Pasos**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Clona el repositorio:
+    ```bash
+    git clone https://github.com/EmersonValenzuela/certificates.git
+    cd certificates
+    ```
+2. Instala dependencias:
+    ```bash
+    composer install
+    ```
+3. Configura tu archivo `.env` (base de datos, correo, etc).
+4. Ejecuta migraciones:
+    ```bash
+    php artisan migrate
+    ```
+5. Inicia el servidor:
+    ```bash
+    php artisan serve
+    ```
+
+---
+
+## <a name="uso-básico">🕸️ Uso Básico</a>
+
+1. Accede como administrador al panel.
+2. Ve a “Generar Certificados”.
+3. Sube las dos imágenes de plantilla (hoja 1 y hoja 2).
+4. Ingresa el título del curso.
+5. Sube tu archivo Excel con los datos de los estudiantes.
+6. Revisa la tabla generada.
+7. Haz clic en “Generar” y descarga los PDFs.
+
+---
+
+## <a name="formato-del-excel">📑 Formato del Excel</a>
+
+| dni      | nombre_alumno | curso | nota | email          
+|----------|---------------|-------|------|----------------
+| 87654321 | Juan Pérez    | BIM   | 18   | juan@email.com 
+
+---
+
+## <a name="personalización">🎨 Personalización</a>
+
+- Modifica la ubicación de los datos en el PDF desde el controlador.
+- Cambia el diseño del QR y la información mostrada.
+- Añade nuevas plantillas o tipos de certificados según tu marca.
+
+---
+
+## <a name="contribución">🤝 Contribución</a>
+
+¿Te interesa colaborar? Abre un issue o envía tu PR. ¡Toda mejora es bienvenida!
+
+---
+
+## <a name="licencia">📝 Licencia</a>
+
+MIT
+
+---
+
+> ¿Dudas, sugerencias o mejoras? Contacta al autor o abre un issue en el repositorio.
